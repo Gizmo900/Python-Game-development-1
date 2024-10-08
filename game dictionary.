@@ -1,0 +1,73 @@
+
+
+#  Step 1 :create a dictonary with games and their descriptions 
+game_dict={
+    "Football":"A game played by two teams where the goal is to score by kicking the ball into the other team's net.",
+    "Basketball":"A sport where two teams try to score by shooting a ball into a hoop elevated off the ground.",
+    "Cricket":"A bat and ball game played between two teams, usually with 11 players on each team."
+}
+
+#step 2:A)get user type name of the game and print the description
+game_name= input ("Enter name of game:")
+
+#Check if game exists in the dictonary.
+if game_name in game_dict:
+    print(f"{game_name}:{game_dict[game_name]}")
+else:
+    print(f"Sorry, {game_name} is not in the dictionary.")
+
+#Step 3: B)Create a new entry for Volleyball
+game_dict["Volleyball"]=" A game where two teams try to score points by hitting a ball over a net using their hands. "
+
+
+#Step 4: C) Change the description of Cricket
+game_dict["Cricket"] = " A team sport where players try to score runs by hitting a ball and running between wickets."
+
+# Print the updated dictionary to see the changes
+print("\nUpdated Game Dictionary:")
+ 
+ #This is a loop. It goes through every game and its description in the dictionary called game_dict.
+for game, description in game_dict.items(): 
+    print(f"{game}:{description}")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
