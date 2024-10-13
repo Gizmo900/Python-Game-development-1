@@ -1,0 +1,48 @@
+import pgzrun, random
+
+# Set the width and height of the game window
+WIDTH = 400
+HEIGHT = 400
+
+# This is the function that will draw things on the screen
+def draw():
+    screen.fill('white')  # Fill the background
+
+    # Draw one big red circle in the center of the screen
+    screen.draw.filled_circle((200, 200), 50, 'red')
+
+    # Drawing 20 random filled circles in different positions
+    for i in range(20):  # Repeat the following block of code 20 times to draw 20 circles
+        r = random.randint(0, 255)  # pick a random amount of red for the circle's color
+        g = random.randint(0, 255)  # pick a random amount of green for the circle's color
+        b = random.randint(0, 255)  # pick a random amount of blue for the circle's color
+        x = random.randint(0, WIDTH)  # pick a random x-coordinate
+        y = random.randint(0, HEIGHT)  # pick a random y-coordinate
+        radius = random.randint(10, 40)  # pick a random radius for each circle
+
+        # Draw filled circles
+        screen.draw.filled_circle((x, y), radius, (r, g, b))
+
+    # Draw 60 empty circles starting from the center (200,200)
+    for i in range(60):  # Repeat the following block of code 60 times
+        r = random.randint(0, 255)  # pick a random amount of red for the circle's color
+        g = random.randint(0, 255)  # pick a random amount of green for the circle's color
+        b = random.randint(0, 255)  # pick a random amount of blue for the circle's color
+        radius = random.randint(10, 100)  # pick a random radius for each circle
+
+        # Draw hollow circles
+        screen.draw.circle((200, 200), radius, (r, g, b))
+
+    # Drawing a rectangle that gradually grows in size
+    for i in range(1, 100):  # Repeat the following block of code 100 times
+        r = random.randint(0, 255)
+        g = random.randint(0, 255)
+        b = random.randint(0, 255)
+        rect_width = i
+        rect_height = i * 2  # increase the height
+
+        # Draw growing rectangles
+        screen.draw.rect(Rect((50, 50), (rect_width, rect_height)), (r, g, b))
+
+
+pgzrun.go()
