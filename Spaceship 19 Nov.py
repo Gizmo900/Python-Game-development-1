@@ -18,10 +18,14 @@ start_time = time()
 
 # Store actors
 spaceships = [] # list to store spaceship actors
+current_sat = 0
+lines = []
+
+
 
 # creates the spaceship
 for i in range(tot_spaceship):
-    spaceship = Actor("spaceship")
+    spaceship = Actor("satellite")
     # Random positions within boundaries
     spaceship.pos = (randint(50, 550), randint(50, 550))
     #add the spaceship to the list.
@@ -41,12 +45,30 @@ def draw():
 
     # Calculate and display elapsed time
     total_time = time() - start_time
-    screen.draw.text(
-        str(total_time),(10,10), fontsize = 30
-    )
+    if current_sat < tot_spaceship:
 
+
+        screen.draw.text(str(total_time),(10,10), fontsize = 30)
+
+    else:
+        screen.draw.text(str(total_time),(10,10), fontsize = 30)
+
+    for i in lines:
+        screen.draw.line(i[0],i[1],"red")
 def update():
     pass
+def on_mouse_down(pos): 
+    global current_sat,tot_spaceship,lines
+    if current_sat<tot_spaceship:
+        if spaceships[current_sat].collidepoint(pos):
+            if current_sat:
+                lines.append((spaceships[current_sat - 1].pos,spaceships[current_sat].pos))
+            current_sat +=1
+        else:
+            lines = []
+            current_sat = 0
+
+
 
 pgzrun.go()
 
