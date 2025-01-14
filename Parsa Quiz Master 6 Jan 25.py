@@ -96,7 +96,41 @@ def load_questions():
     global questons,question_index
 
     question_index+=1 # Moves to the next question text and options
-    return questions.pop(0).split("|") # Splits the question and its options
+    return questions.pop(0).split("|") # Splits the question and its option
+
+def on_mouse_down(pos):
+    index = 1
+    for i in a_boxes:
+        if i.collidepoint(pos):
+            if index is int(question[5]):
+                correct_answer()
+            else:
+                game_over()
+        index +=1
+    if skip_box.collidepoint(pos):
+        skip_question()
+
+def skip_question():
+    global question,time_left
+    if questions and not gameover:
+        question = load_questions()
+        time_left = 10
+
+    else:
+        game_over()
+
+def correct_answer():
+    global question,score,time_left
+    score+=1
+    if questions:
+        question = load_questions()
+        time_left = 10
+    else:
+        game_over()
+        
+
+
+
 
 # Game Over
 def game_over():
@@ -105,6 +139,12 @@ def game_over():
      question = [message,"-","-","-","-",5] # Placeholder question to signal game over.
      time_left = 0 # Stops the timer.
      gameover = True
+
+
+
+
+
+
 
 
 
