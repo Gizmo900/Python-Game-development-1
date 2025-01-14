@@ -1,9 +1,9 @@
 """Quiz Master (File Handling in Python, Scoring System, Making a Timer)
 
 Game Description:
-
 Creation of a quiz game named "Quiz Master" using the Pygame Zero library for graphics and game logic."""
-import pgzrun
+
+import pgzrun # Imports the Pygame zero library for graphics
 
 TITLE = "Quiz game" #Sets the title of the game window
 WIDTH = 800 #Define the size of the game window in pixels
@@ -18,11 +18,11 @@ a_box3 = Rect(20,450,300,150)
 a_box4 = Rect(370,450,300,150)
 
 # New Time and Skip boxes.
-time_box = Rect(700,100,80,150) # Position at top-right.
-skip_box = Rect(700,270,80,330) # Below the time box.
+time_box = Rect(700,100,80,150) # Displays the reminaing time. Position at top-right.
+skip_box = Rect(700,270,80,330) # A skip button- Below the time box.
 
 #Global Variables
-score = 0                                                                                
+score = 0 # Tracks the player's score.                                                                               
 time_left = 10 #The timer for answering a question.
 scroller_msg = "" #Message to display in the scrolling area
 gameover = False
@@ -34,13 +34,14 @@ questions = [] #List of all questions read from the file.
 
 #Draw Function
 def draw():
-    screen.clear()
-    screen.fill("black")
+    screen.clear() # Clears the screen for the next frame
+    screen.fill("black") # Fills the background with black.
 
     # Draw scroller and question boxes.
     screen.draw.filled_rect(scroller_box,"navy")
     screen.draw.filled_rect(question_box,"red")
     
+    #Draw answer option boxes.
     for box in a_boxes:
     # Draw answer boxes.
         screen.draw.filled_rect(box,"yellow")
@@ -53,12 +54,15 @@ def draw():
     #Draws the skip_box with the label "Skip", rotated by 90 degrees.
     screen.draw.filled_rect(skip_box, "green")
     screen.draw.text("Skip",center = skip_box.center, fontsize = 30, color = "white",angle = -90)
+    
     #Displays a scrolling message showing the current question number
     scroller_msg = f"Welcome to the quiz! Q.No.{question_index} of {question_count}"
     screen.draw.textbox(scroller_msg,scroller_box,color = "white")
+    
+    # Display the current quesiton and its options.
     screen.draw.textbox(question[0],question_box,color = "blue")
     
-    index = 1
+    index = 1 # Starts from the first answer option.
     for box in a_boxes:
         screen.draw.textbox(question[index],box,color = "blue")
         index+=1
@@ -86,37 +90,41 @@ def read_questions():
 
 
 
-
+# Load questions
 def load_questions():
+    """Loads the next question and splits it into question text and options."""
     global questons,question_index
 
-    question_index+=1
-    return questions.pop(0).split("|")
+    question_index+=1 # Moves to the next question text and options
+    return questions.pop(0).split("|") # Splits the question and its options
 
+# Game Over
 def game_over():
      global question,score,gameover,time_left
-     message = f"Game Over. You have scored {score}"
-     question = [message,"-","-","-","-",5]
-     time_left = 0
+     message = f"Game Over. You have scored {score}" # Game over message.
+     question = [message,"-","-","-","-",5] # Placeholder question to signal game over.
+     time_left = 0 # Stops the timer.
      gameover = True
 
 
 
-
+# Update Time
 def update_time():
+    """Updates the timer and triggers game over when time runs out."""
     global time_left
     if time_left>0:
-        time_left-=1
+        time_left-=1 # Decreases the timer by 1 second.
     else:
-        game_over()
+        game_over() # Ends the game when the timer reaches 0.
 
 
 
 
-
+# Initialize the Game
 read_questions() #Loads questions from the file.
-question = load_questions()
-clock.schedule_interval(update_time,1)
+question = load_questions() # Loads the first question.
+clock.schedule_interval(update_time,1)  # Schedules the timer to update every second.
+
 
 
 pgzrun.go() #Starts the game loop
